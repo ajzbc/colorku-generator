@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>COLORKU Generator</title>
+   <link rel="stylesheet" href="chota.css">
+   <script src="sudoku.js"></script>
+   <style>
+      body {
+         background-color: black;
+      }
+
+      .main {
+         max-width: 700px;
+         margin: 20px auto;
+      }
+
+      h1 {
+         color: rgb(250, 250, 250);
+      }
+
+      #board {
+         margin-top: 10px;
+      }
+
+      .box {
+         background-color: rgba(255, 255, 255, 0.05);
+         height: 60px;
+         margin-top: 10px;
+      }
+
+      .circle {
+         width: 50px;
+         height: 50px;
+         border-radius: 30px;
+      }
+
+      .button {
+         background-color: rgb(250, 250, 250);
+         color: #000;
+      }
+   </style>
+</head>
+
+<body>
+   <div class="main">
+      <h1>
+         <span style="color: #D83B3E">C</span>
+         <span style="color: #D8861B">O</span>
+         <span style="color: #DED55C">L</span>
+         <span style="color: #A2C851">O</span>
+         <span style="color: #1A6743">R</span>
+         <span style="color: #012792">K</span>
+         <span style="color: #6C345B">U</span>
+         &nbsp;Generator
+      </h1>
+
+      <a class="button" onclick="generate(50)">Easy</a>
+      <a class="button" onclick="generate(30)">Medium</a>
+      <a class="button" onclick="generate(15)">Hard</a>
+
+      <div id="board"></div>
+   </div>
+
+   <script>
+
+      var colors = ["#D83B3E", "#D8861B", "#DED55C", "#A2C851", "#1A6743", "#99BEDC", "#012792", "#D3AFCF", "#6C345B"];
+
+      generate(30);
+
+      function generate(dif) {
+         var grid = sudoku.generate(dif);
+
+         var board = document.getElementById("board");
+         board.innerHTML = "";
+
+         var new_row;
+
+         for (var i = 0; i < grid.length; i++) {
+            if (i % 9 == 0) {
+               new_row = document.createElement("div");
+               new_row.className = "row";
+               board.appendChild(new_row);
+            }
+            var new_col = document.createElement("div");
+            new_col.className = "col is-center box";
+
+            if (grid.charAt(i) != '.') {
+               var new_circle = document.createElement("div");
+               new_circle.className = "circle";
+               new_circle.style.backgroundColor = colors[parseInt(grid.charAt(i)) - 1];
+               new_col.appendChild(new_circle);
+            }
+
+            new_row.appendChild(new_col);
+         }
+      }
+
+   </script>
+</body>
+
+</html>
